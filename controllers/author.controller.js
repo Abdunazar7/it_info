@@ -8,7 +8,7 @@ const addAuthor = async (req, res) => {
 
     const candidate = await Author.findOne({ where: { email } });
     if (candidate) {
-      return sendErrorResponse({ message: "Bunday author mavjud" }, res, 400);
+      return sendErrorResponse({ message: "Author already exists" }, res, 400);
     }
 
     const hashedPassword = await bcrypt.hash(password, 7);

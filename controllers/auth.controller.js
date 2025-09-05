@@ -11,7 +11,7 @@ const login = async (req, res) => {
     const author = await Author.findOne({ where: { email } });
     if (!author) {
       return sendErrorResponse(
-        { message: "Email yoki password noto'g'ri" },
+        { message: "Invalid email or password" },
         res,
         401
       );
@@ -20,7 +20,7 @@ const login = async (req, res) => {
     const verifyPassword = await bcrypt.compare(password, author.password);
     if (!verifyPassword) {
       return sendErrorResponse(
-        { message: "Email yoki password noto'g'ri" },
+        { message: "Invalid email or password" },
         res,
         401
       );
@@ -73,7 +73,7 @@ const logout = async (req, res) => {
     await author.save();
 
     res.clearCookie("refreshToken");
-    res.status(200).json({ message: "Logout muvaffaqiyatli yakunlandi" });
+    res.status(200).json({ message: "Successfully logged out" });
   } catch (error) {
     sendErrorResponse(error, res, 500);
   }
@@ -84,7 +84,7 @@ const refreshToken = async (req, res) => {
     const { refreshToken } = req.cookies;
     if (!refreshToken) {
       return sendErrorResponse(
-        { message: "Cookie refresh token topilmadi" },
+        { message: "Redresh token not found" },
         res,
         400
       );
@@ -95,7 +95,7 @@ const refreshToken = async (req, res) => {
     const author = await Author.findByPk(verifiedRefreshToken.id);
     if (!author || !author.refresh_token) {
       return sendErrorResponse(
-        { message: "Author topilmadi yoki refresh token yo'q" },
+        { message: "Author not found or invalid refresh token" },
         res,
         401
       );
@@ -103,7 +103,7 @@ const refreshToken = async (req, res) => {
 
     const isValid = await bcrypt.compare(refreshToken, author.refresh_token);
     if (!isValid) {
-      return sendErrorResponse({ message: "Refresh token yaroqsiz" }, res, 401);
+      return sendErrorResponse({ message: "Invalid refresh token" }, res, 401);
     }
 
     const payload = {
@@ -126,7 +126,7 @@ const refreshToken = async (req, res) => {
     });
 
     res.status(200).json({
-      message: "Token yangilandi",
+      message: "Access token updated",
       accessToken: tokens.accessToken,
     });
   } catch (error) {
