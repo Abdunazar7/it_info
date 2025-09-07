@@ -1,7 +1,7 @@
 {
 	"info": {
-		"_postman_id": "76c3ae00-1f9b-4db8-9d31-fbb011333c4c",
-		"name": "IT_terms",
+		"_postman_id": "5e5bafb5-7b18-4107-8c4c-3359c1d2b887",
+		"name": "IT_terms_API",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "46840672"
 	},
@@ -21,7 +21,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"email\": \"author1@example.com\",\n  \"password\": \"12345\"\n}"
+							"raw": "{\n \"email\": \"author2@example.com\",\n \"password\": \"12345\"\n}"
 						},
 						"url": {
 							"raw": "http://localhost:3000/api/auth/login",
@@ -98,7 +98,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"first_name\": \"John\",\n  \"last_name\": \"Smith\",\n  \"email\": \"author2@example.com\",\n  \"phone\": \"+998901234567\",\n  \"password\": \"12345\",\n  \"info\": \"Some description\",\n  \"position\": \"Writer\",\n  \"is_expert\": true\n}"
+							"raw": "{\n \"first_name\": \"John\",\n \"last_name\": \"Smith\",\n \"email\": \"author2@example.com\",\n \"phone\": \"+998901234567\",\n \"password\": \"12345\",\n \"info\": \"Some description\",\n \"position\": \"Writer\",\n \"is_expert\": true\n}"
 						},
 						"url": {
 							"raw": "http://localhost:3000/api/authors",
@@ -123,7 +123,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJhdXRob3IxQGV4YW1wbGUuY29tIiwiaXNfYWN0aXZlIjp0cnVlLCJpc19leHBlcnQiOnRydWUsInJvbGUiOiJhdXRob3IiLCJpYXQiOjE3NTcwNDE2MTUsImV4cCI6MTc1NzA5NTYxNX0.yS_eDvZgcmqtmFlpIVX7b17dgRqm-btf7WVwf_WlPK0",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJhdXRob3IyQGV4YW1wbGUuY29tIiwiaXNfYWN0aXZlIjp0cnVlLCJpc19leHBlcnQiOnRydWUsInJvbGUiOiJhdXRob3IiLCJpYXQiOjE3NTcyNjY5OTIsImV4cCI6MTc1NzMyMDk5Mn0.LM4esbPG-X9eIl_CG-m0jE55ig9NhtcgnVgckgadfh0",
 									"type": "string"
 								}
 							]
@@ -198,7 +198,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"first_name\": \"Sam\",\n  \"last_name\": \"Doe\",\n  \"email\": \"author1@example.com\",\n  \"phone\": \"+998901234567\",\n  \"password\": \"12345\",\n  \"info\": \"Some description\",\n  \"position\": \"Writer\",\n  \"is_expert\": true\n}"
+							"raw": "{\n \"first_name\": \"Sam\",\n \"last_name\": \"Doe\",\n \"email\": \"author1@example.com\",\n \"phone\": \"+998901234567\",\n \"password\": \"12345\",\n \"info\": \"Some description\",\n \"position\": \"Writer\",\n \"is_expert\": true\n}"
 						},
 						"url": {
 							"raw": "http://localhost:3000/api/authors/1",
@@ -254,7 +254,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"name\": \"Twitter\",\n  \"icon\": \"twitter.png\"\n}"
+							"raw": "{\n \"name\": \"Twitter\",\n \"icon\": \"twitter.png\"\n}"
 						},
 						"url": {
 							"raw": "http://localhost:3000/api/socials",
@@ -324,7 +324,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"name\": \"Instagram\",\n  \"icon\": \"instagram.png\"\n}"
+							"raw": "{\n \"name\": \"Instagram\",\n \"icon\": \"instagram.png\"\n}"
 						},
 						"url": {
 							"raw": "http://localhost:3000/api/socials/1",
@@ -380,7 +380,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"author_id\": 2,\n  \"social_id\": 2,\n  \"social_link\": \"https://twitter.com/author2\"\n}"
+							"raw": "{\n \"author_id\": 2,\n \"social_id\": 2,\n \"social_link\": \"https://twitter.com/author2\"\n}"
 						},
 						"url": {
 							"raw": "http://localhost:3000/api/author-socials",
@@ -451,7 +451,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"social_link\": \"https://instagram.com/author1\"\n}"
+							"raw": "{\n \"social_link\": \"https://instagram.com/author1\"\n}"
 						},
 						"url": {
 							"raw": "http://localhost:3000/api/author-socials/1/1",
@@ -486,6 +486,573 @@
 								"api",
 								"author-socials",
 								"1",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "categories",
+			"item": [
+				{
+					"name": "create category",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"category_name\": \"Programming\",\n    \"parent_category_id\": null\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/categories",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"categories"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get categories",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/categories",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"categories"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get category",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/categories/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"categories",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update category",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"category_name\": \"Web Development\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/categories/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"categories",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete category",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/categories/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"categories",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "topics",
+			"item": [
+				{
+					"name": "create topic",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"topic_title\": \"Introduction to Sequelize\",\n    \"topic_text\": \"This is a comprehensive guide to starting with Sequelize ORM for Node.js.\",\n    \"author_id\": 1\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/topics",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"topics"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get topics",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/topics",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"topics"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get topic",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/topics/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"topics",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update topic",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"topic_title\": \"Advanced Sequelize Hooks\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/topics/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"topics",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete topic",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/topics/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"topics",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "descriptions",
+			"item": [
+				{
+					"name": "create description",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"description\": \"Object-Relational Mapping (ORM) is a technique for converting data between incompatible type systems using object-oriented programming languages.\",\n    \"category_id\": 1\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/descriptions",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"descriptions"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get descriptions",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/descriptions",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"descriptions"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get description",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/descriptions/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"descriptions",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update description",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"description\": \"An updated description about ORM.\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/descriptions/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"descriptions",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete description",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/descriptions/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"descriptions",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "dictionaries",
+			"item": [
+				{
+					"name": "create term",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"term\": \"ORM\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/dictionaries",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"dictionaries"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get terms",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/dictionaries",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"dictionaries"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get term",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/dictionaries/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"dictionaries",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update term",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"term\": \"Object Relational Mapping\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/dictionaries/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"dictionaries",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete term",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/dictionaries/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"dictionaries",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "link description to term",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"descriptionId\": 1\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/dictionaries/1/descriptions",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"dictionaries",
+								"1",
+								"descriptions"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "remove description from term",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/dictionaries/1/descriptions/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"dictionaries",
+								"1",
+								"descriptions",
 								"1"
 							]
 						}

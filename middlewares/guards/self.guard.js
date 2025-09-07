@@ -4,7 +4,7 @@ module.exports = async (req, res, next) => {
   try {
     if (req.params.id != req.author.id) {
       return sendErrorResponse(
-        { message: "Faqat shaxsiy ma'lumotlarga kirish mumkin" },
+        { message: "Only personal data is allowed" },
         res,
         403
       );

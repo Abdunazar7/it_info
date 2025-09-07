@@ -1,10 +1,12 @@
-const AuthorSocial = require("../models/author_social.model");
+const { AuthorSocial } = require("../models/index.model");
 const { sendErrorResponse } = require("../helpers/send.response.errors");
 
 const addAuthorSocial = async (req, res) => {
   try {
     const newLink = await AuthorSocial.create(req.body);
-    res.status(201).send({ message: "New author-social link added", data: newLink });
+    res
+      .status(201)
+      .send({ message: "New author-social link added", data: newLink });
   } catch (err) {
     sendErrorResponse(err, res, 400);
   }
@@ -22,7 +24,9 @@ const getAuthorSocials = async (req, res) => {
 const getOneAuthorSocial = async (req, res) => {
   try {
     const { author_id, social_id } = req.params;
-    const link = await AuthorSocial.findOne({ where: { author_id, social_id } });
+    const link = await AuthorSocial.findOne({
+      where: { author_id, social_id },
+    });
     if (!link) {
       return res.status(404).send({ message: "Author-Social link not found" });
     }
@@ -37,7 +41,7 @@ const updateAuthorSocial = async (req, res) => {
     const { author_id, social_id } = req.params;
     const [rows, [updatedLink]] = await AuthorSocial.update(req.body, {
       where: { author_id, social_id },
-      returning: true
+      returning: true,
     });
     if (rows === 0) {
       return res.status(404).send({ message: "Author-Social link not found" });
@@ -51,7 +55,9 @@ const updateAuthorSocial = async (req, res) => {
 const deleteAuthorSocial = async (req, res) => {
   try {
     const { author_id, social_id } = req.params;
-    const deleted = await AuthorSocial.destroy({ where: { author_id, social_id } });
+    const deleted = await AuthorSocial.destroy({
+      where: { author_id, social_id },
+    });
     if (!deleted) {
       return res.status(404).send({ message: "Author-Social link not found" });
     }
@@ -66,5 +72,5 @@ module.exports = {
   getAuthorSocials,
   getOneAuthorSocial,
   updateAuthorSocial,
-  deleteAuthorSocial
+  deleteAuthorSocial,
 };

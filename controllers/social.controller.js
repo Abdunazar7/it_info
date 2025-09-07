@@ -1,4 +1,4 @@
-const Social = require("../models/social.model");
+const { Social } = require("../models/index.model");
 const { sendErrorResponse } = require("../helpers/send.response.errors");
 
 const addSocial = async (req, res) => {
@@ -37,7 +37,7 @@ const updateSocial = async (req, res) => {
     const { id } = req.params;
     const [rows, [updatedSocial]] = await Social.update(req.body, {
       where: { id },
-      returning: true
+      returning: true,
     });
     if (rows === 0) {
       return res.status(404).send({ message: "Social not found" });
@@ -66,5 +66,5 @@ module.exports = {
   getSocials,
   getOneSocial,
   updateSocial,
-  deleteSocial
+  deleteSocial,
 };

@@ -3,7 +3,7 @@ const {
   getAuthorSocials,
   getOneAuthorSocial,
   updateAuthorSocial,
-  deleteAuthorSocial
+  deleteAuthorSocial,
 } = require("../controllers/author_social.controller");
 
 const router = require("express").Router();

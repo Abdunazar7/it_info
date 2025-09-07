@@ -1,5 +1,5 @@
 const { sendErrorResponse } = require("../helpers/send.response.errors");
-const Author = require("../models/author.model");
+const { Author }  = require("../models/index.model");
 const jwtService = require("../services/jwt.service");
 const bcrypt = require("bcrypt");
 const config = require("config");
@@ -31,7 +31,7 @@ const login = async (req, res) => {
       email: author.email,
       is_active: author.is_active,
       is_expert: author.is_expert,
-      role: "author"
+      role: "author",
     };
 
     const tokens = jwtService.generateTokens(payload);
@@ -62,7 +62,9 @@ const logout = async (req, res) => {
       );
     }
 
-    const verifiedRefreshToken = await jwtService.verifyRefreshToken(refreshToken);
+    const verifiedRefreshToken = await jwtService.verifyRefreshToken(
+      refreshToken
+    );
     const author = await Author.findByPk(verifiedRefreshToken.id);
 
     if (!author) {
@@ -90,7 +92,9 @@ const refreshToken = async (req, res) => {
       );
     }
 
-    const verifiedRefreshToken = await jwtService.verifyRefreshToken(refreshToken);
+    const verifiedRefreshToken = await jwtService.verifyRefreshToken(
+      refreshToken
+    );
 
     const author = await Author.findByPk(verifiedRefreshToken.id);
     if (!author || !author.refresh_token) {
@@ -111,7 +115,7 @@ const refreshToken = async (req, res) => {
       email: author.email,
       is_active: author.is_active,
       is_expert: author.is_expert,
-      role: "author"
+      role: "author",
     };
 
     const tokens = jwtService.generateTokens(payload);

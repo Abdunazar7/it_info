@@ -1,4 +1,4 @@
-const Author = require("../models/author.model");
+const { Author } = require("../models/index.model");
 const { sendErrorResponse } = require("../helpers/send.response.errors");
 const bcrypt = require("bcrypt");
 
