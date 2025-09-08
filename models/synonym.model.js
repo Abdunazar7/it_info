@@ -1,18 +1,16 @@
-const sequelize = require("../config/db");
 const { DataTypes } = require("sequelize");
+const sequelize = require("../config/db");
 
 const Synonym = sequelize.define(
   "synonym",
   {
-    id: {
-      type: DataTypes.INTEGER,
-      primaryKey: true,
-      autoIncrement: true,
-    },
+    id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
   },
   {
     freezeTableName: true,
-    timestamps: false,
+    timestamps: true,
+    createdAt: "created_date",
+    updatedAt: "updated_date",
   }
 );
 

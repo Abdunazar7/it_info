@@ -1,65 +1,42 @@
-const { Dictionary, Synonym } = require("../models/index.model");
-const { sendErrorResponse } = require("../helpers/send.response.errors");
+const Dictionary = require("../models/dictionary.model");
+const Description = require("../models/description.model");
+const { sendErrorResponse } = require("../utils/errorHandler");
 
-const addSynonym = async (req, res) => {
+const addDescriptionToTerm = async (req, res) => {
   try {
-    const synonym = await Synonym.create(req.body);
-    res.status(201).send({ message: "Synonym created", data: synonym });
-  } catch (err) {
-    sendErrorResponse(err, res, 400);
+    const { termId } = req.params;
+    const { descriptionId } = req.body;
+
+    const term = await Dictionary.findByPk(termId);
+    if (!term) return res.status(404).send({ message: "Term not found" });
+
+    const description = await Description.findByPk(descriptionId);
+    if (!description) return res.status(404).send({ message: "Description not found" });
+
+    await term.addDescription(description);
+
+    res.status(200).send({ message: "Description successfully linked to Term" });
+  } catch (error) {
+    sendErrorResponse(error, res, 500);
   }
 };
 
-const getSynonyms = async (req, res) => {
+const removeDescriptionFromTerm = async (req, res) => {
   try {
-    const synonyms = await Synonym.findAll({
-      include: [{ model: Dictionary, attributes: ["id", "term"] }],
-    });
-    res.status(200).send(synonyms);
-  } catch (err) {
-    sendErrorResponse(err, res, 500);
+    const { termId, descriptionId } = req.params;
+
+    const term = await Dictionary.findByPk(termId);
+    if (!term) return res.status(404).send({ message: "Term not found" });
+
+    const description = await Description.findByPk(descriptionId);
+    if (!description) return res.status(404).send({ message: "Description not found" });
+
+    await term.removeDescription(description);
+
+    res.status(200).send({ message: "Description successfully unlinked from Term" });
+  } catch (error) {
+    sendErrorResponse(error, res, 500);
   }
 };
 
-const getOneSynonym = async (req, res) => {
-  try {
-    const synonym = await Synonym.findByPk(req.params.id, {
-      include: [{ model: Dictionary, attributes: ["id", "term"] }],
-    });
-    if (!synonym) return res.status(404).send({ message: "Synonym not found" });
-    res.send(synonym);
-  } catch (err) {
-    sendErrorResponse(err, res, 500);
-  }
-};
-
-const updateSynonym = async (req, res) => {
-  try {
-    const [rows, [synonym]] = await Synonym.update(req.body, {
-      where: { id: req.params.id },
-      returning: true,
-    });
-    if (!rows) return res.status(404).send({ message: "Synonym not found" });
-    res.send({ message: "Synonym updated", data: synonym });
-  } catch (err) {
-    sendErrorResponse(err, res, 500);
-  }
-};
-
-const deleteSynonym = async (req, res) => {
-  try {
-    const rows = await Synonym.destroy({ where: { id: req.params.id } });
-    if (!rows) return res.status(404).send({ message: "Synonym not found" });
-    res.send({ message: "Synonym deleted" });
-  } catch (err) {
-    sendErrorResponse(err, res, 500);
-  }
-};
-
-module.exports = {
-  addSynonym,
-  getSynonyms,
-  getOneSynonym,
-  updateSynonym,
-  deleteSynonym,
-};
+module.exports = { addDescriptionToTerm, removeDescriptionFromTerm };

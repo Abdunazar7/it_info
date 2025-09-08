@@ -97,10 +97,114 @@ const deleteDescription = async (req, res) => {
   }
 };
 
+const addDescriptionToTerm = async (req, res) => {
+  try {
+    const { termId, descriptionId } = req.body;
+
+    if(!termId || !descriptionId){
+      return res.status(400).send({ message: "termId and descriptionId are required" });
+    }
+
+    const term = await Dictionary.findByPk(termId);
+    if (!term) {
+      return res.status(404).send({ message: "Term not found" });
+    }
+
+    const description = await Description.findByPk(descriptionId);
+    if (!description) {
+      return res.status(404).send({ message: "Description not found" });
+    }
+
+    await term.addDescription(description);
+
+    res
+      .status(200)
+      .send({ message: "Description successfully linked to the term" });
+  } catch (error) {
+    sendErrorResponse(error, res, 500);
+  }
+};
+
+const removeDescriptionFromTerm = async (req, res) => {
+  try {
+    const { termId, descriptionId } = req.body;
+
+    if(!termId || !descriptionId){
+      return res.status(400).send({ message: "termId and descriptionId are required" });
+    }
+
+    const term = await Dictionary.findByPk(termId);
+    if (!term) {
+      return res.status(404).send({ message: "Term not found" });
+    }
+
+    const description = await Description.findByPk(descriptionId);
+    if (!description) {
+      return res.status(404).send({ message: "Description not found" });
+    }
+
+    await term.removeDescription(description);
+
+    res
+      .status(200)
+      .send({ message: "Description successfully unlinked from the term" });
+  } catch (error) {
+    sendErrorResponse(error, res, 500);
+  }
+};
+
+const addDescriptionToTopic = async (req, res) => {
+  try {
+    const { descriptionId, topicId } = req.body;
+
+    if(!descriptionId || !topicId){
+      return res.status(400).send({ message: "descriptionId and topicId are required" });
+    }
+
+    const description = await Description.findByPk(descriptionId);
+    if (!description) return res.status(404).send({ message: "Description not found" });
+
+    const topic = await Topic.findByPk(topicId);
+    if (!topic) return res.status(404).send({ message: "Topic not found" });
+
+    await description.addTopic(topic);
+
+    res.status(200).send({ message: "Topic successfully linked to Description" });
+  } catch (error) {
+    sendErrorResponse(error, res, 500);
+  }
+};
+
+const removeDescriptionFromTopic = async (req, res) => {
+  try {
+    const { descriptionId, topicId } = req.body;
+
+    if(!descriptionId || !topicId){
+      return res.status(400).send({ message: "descriptionId and topicId are required" });
+    }
+
+    const description = await Description.findByPk(descriptionId);
+    if (!description) return res.status(404).send({ message: "Description not found" });
+
+    const topic = await Topic.findByPk(topicId);
+    if (!topic) return res.status(404).send({ message: "Topic not found" });
+
+    await description.removeTopic(topic);
+
+    res.status(200).send({ message: "Topic successfully unlinked from Description" });
+  } catch (error) {
+    sendErrorResponse(error, res, 500);
+  }
+};
+
 module.exports = {
   addDescription,
   getDescriptions,
   getOneDescription,
   updateDescription,
   deleteDescription,
+  addDescriptionToTopic,
+  removeDescriptionFromTopic,
+  addDescriptionToTerm,
+  removeDescriptionFromTerm,
 };

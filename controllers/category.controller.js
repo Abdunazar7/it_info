@@ -1,4 +1,4 @@
-const { Category, Description, Tag } = require("../models/index.model");
+const { Category, Description, Tag, Topic } = require("../models/index.model");
 const { sendErrorResponse } = require("../helpers/send.response.errors");
 
 const addCategory = async (req, res) => {
@@ -27,6 +27,7 @@ const getCategories = async (req, res) => {
       include: [
         { model: Category, as: "children" },
         { model: Category, as: "parent" },
+        { model: Topic, through: Tag},
       ],
     });
     res.status(200).send(categories);
@@ -41,10 +42,10 @@ const getOneCategory = async (req, res) => {
 
     const category = await Category.findByPk(id, {
       include: [
-        Description,
-        Tag,
-        { model: Category, as: "children" },
-        { model: Category, as: "parent" },
+        { model: Description }, 
+        { model: Tag }, 
+        { model: Category, as: "children" }, 
+        { model: Category, as: "parent" }
       ],
     });
 

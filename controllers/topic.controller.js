@@ -1,4 +1,4 @@
-const { Author, Description, Tag, Topic } = require("../models/index.model");
+const { Author, Description, Tag, Topic, Category, DescTopic } = require("../models/index.model");
 const { sendErrorResponse } = require("../helpers/send.response.errors");
 
 const addTopic = async (req, res) => {
@@ -31,9 +31,13 @@ const getTopics = async (req, res) => {
 const getOneTopic = async (req, res) => {
   try {
     const { id } = req.params;
-    const topic = await Topic.findByPk(id, {
-      include: [Author, Tag, Description],
-    });
+const topic = await Topic.findByPk(id, {
+  include: [
+    { model: Author },
+    { model: Tag },
+    { model: Description, as: "descriptions" }
+  ],
+});
     if (!topic) {
       return res.status(404).send({ message: "Topic not found" });
     }
@@ -72,10 +76,64 @@ const deleteTopic = async (req, res) => {
   }
 };
 
+const addTopicToCategory = async (req, res) => {
+  try {
+    const { categoryId, topicId } = req.body;
+
+    if(!categoryId || !topicId){
+      return res.status(400).send({ message: "categoryId and topicId are required" });
+    }
+
+    const category = await Category.findByPk(categoryId);
+    if (!category) {
+      return res.status(404).send({ message: "Category not found" });
+    }
+
+    const topic = await Topic.findByPk(topicId);
+    if (!topic) {
+      return res.status(404).send({ message: "Topic not found" });
+    }
+
+    await category.addTopic(topic);
+
+    res.status(200).send({ message: "Topic successfully linked to Category" });
+  } catch (error) {
+    sendErrorResponse(error, res, 500);
+  }
+};
+
+const removeTopicFromCategory = async (req, res) => {
+  try {
+    const { categoryId, topicId } = req.body;
+
+    if(!categoryId || !topicId){
+      return res.status(400).send({ message: "categoryId and topicId are required" });
+    }
+
+    const category = await Category.findByPk(categoryId);
+    if (!category) {
+      return res.status(404).send({ message: "Category not found" });
+    }
+
+    const topic = await Topic.findByPk(topicId);
+    if (!topic) {
+      return res.status(404).send({ message: "Topic not found" });
+    }
+
+    await category.removeTopic(topic);
+
+    res.status(200).send({ message: "Topic successfully unlinked from Category" });
+  } catch (error) {
+    sendErrorResponse(error, res, 500);
+  }
+};
+
 module.exports = {
   addTopic,
   getTopics,
   getOneTopic,
   updateTopic,
   deleteTopic,
+  addTopicToCategory,
+  removeTopicFromCategory,
 };
