@@ -10,6 +10,9 @@ const Topic = require("./topic.model");
 const DescTopic = require("./desc_topic.model");
 const Synonym = require("./synonym.model");
 
+const User = require("./user.model");
+const Admin = require("./admin.model");
+
 // ================= Associations =================
 
 // Author <-> Social (many-to-many)
@@ -68,4 +71,6 @@ module.exports = {
   Topic,
   DescTopic,
   Synonym,
+  User,
+  Admin,
 };
